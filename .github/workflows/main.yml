@@ -9,7 +9,24 @@ jobs:
   CI:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Obter o Código"
+      - name: Obtendo código
+        uses: actions/checkout@v5
+      - name: Setup do Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.13' 
+      - name: nstall dependecies
+        working-directory: ./src
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Execução dos testes
+        working-directory: ./src
+        run: |
+          python -m pytest tests/ -v   
+
+
+
       - run: echo "Executar o Docker Build"
       - run: echo "Enviar a Imagem docker para docker hub"
 
