@@ -1,0 +1,67 @@
+# ==============================================================================
+# .dockerignore - Encontros Tech
+# ==============================================================================
+# Arquivos e diretórios que não devem ser incluídos na imagem Docker
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+.tox
+.coverage
+.pytest_cache
+*.egg-info
+.venv
+venv/
+env/
+*.egg
+dist/
+build/
+pip-log.txt
+
+# Environment files (nunca incluir credenciais!)
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+logs/
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*.swn
+.project
+.pydevproject
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Documentation (opcional - remova se precisar no container)
+README.md
+docs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+*.backup
+
+# Docker files (evita recursão)
+Dockerfile*
+docker-compose*.yml
+.dockerignore

@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: encontros-tech
+  labels:
+    app: encontros-tech
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: encontros-tech
+  template:
+    metadata:
+      labels:
+        app: encontros-tech
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8000"
+        prometheus.io/path: "/metrics"
+    spec:
+      containers:
+      - name: encontros-tech
+        image: car21/encontros-tech
+        ports:
+        - containerPort: 8000
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: database-secret
+              key: DATABASE_URL
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: encontros-tech
+  labels:
+    app: encontros-tech
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 8000
+    protocol: TCP
+  selector:
+    app: encontros-tech
