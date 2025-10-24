@@ -37,7 +37,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: /src
-          file ./src/Dockerfile
+          file: ./src/Dockerfile
           push: true
           tags: |
             car2100/encontros-tech:latest
