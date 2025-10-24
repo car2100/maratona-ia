@@ -30,6 +30,7 @@ jobs:
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
+          registry: docker.io
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
@@ -40,8 +41,8 @@ jobs:
           file: ./src/Dockerfile
           push: true
           tags: |
-            car2100/encontros-tech:latest
-            car2100/encontros-tech:${{ github.run_number }}
+            docker.io/car2100/encontros-tech:latest
+            docker.io/car2100/encontros-tech:${{ github.run_number }}
 
   CD:
     runs-on: ubuntu-latest
