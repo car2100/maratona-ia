@@ -41,8 +41,8 @@ jobs:
           file: ./src/Dockerfile
           push: true
           tags: |
-            docker.io/car2100/encontros-tech:latest
-            docker.io/car2100/encontros-tech:${{ github.run_number }}
+            docker.io/car21/encontros-tech:latest
+            docker.io/car21/encontros-tech:${{ github.run_number }}
 
   CD:
     runs-on: ubuntu-latest
