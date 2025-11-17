@@ -41,8 +41,8 @@ jobs:
                 file: ./src/Dockerfile
                 push: true
                 tags: |
-                  car2100/encontros-tech:latest
-                  car2100/encontros-tech:v${{ github.run_number }}                 
+                  car21/encontros-tech:latest
+                  car21/encontros-tech:v${{ github.run_number }}                 
 
     CD-Homolog:
         runs-on: ubuntu-latest
