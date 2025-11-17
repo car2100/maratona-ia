@@ -79,33 +79,33 @@ jobs:
                 manifests: |
                   k8s/deployment.yaml
 
-    # CD-Prod:
-    #     runs-on: ubuntu-latest
-    #     needs: [CD-Homolog]
-    #     environment: producao
-    #     steps:
-    #         - name: Obtendo o código do projeto
-    #           uses: actions/checkout@v5
+    CD-Prod:
+        runs-on: ubuntu-latest
+        needs: [CD-Homolog]
+        environment: Prod
+        steps:
+            - name: Obtendo o código do projeto
+              uses: actions/checkout@v5
 
-    #         - name: Configurar contexto Kubernetes
-    #           uses: azure/k8s-set-context@v4
-    #           with:
-    #             method: kubeconfig
-    #             kubeconfig: ${{ secrets.KUBE_CONFIG }}
+            - name: Configurar contexto Kubernetes
+              uses: azure/k8s-set-context@v4
+              with:
+                method: kubeconfig
+                kubeconfig: ${{ secrets.KUBE_CONFIG }}
 
-    #         - name: Criar namespace de produção
-    #           run: kubectl create namespace tech-prod --dry-run=client -o yaml | kubectl apply -f -
+            - name: Criar namespace de produção
+              run: kubectl create namespace tech-prod --dry-run=client -o yaml | kubectl apply -f -
 
-    #         - name: Create secrets in prod
-    #           run: |
-    #             kubectl create secret generic database-secret \
-    #               --from-literal=DATABASE_URL="${{ secrets.DATABASE_URL }}" \
-    #               --namespace=tech-prod \
-    #               --dry-run=client -o yaml | kubectl apply -f -
+            - name: Create secrets in prod
+              run: |
+                kubectl create secret generic database-secret \
+                  --from-literal=DATABASE_URL="${{ secrets.DATABASE_URL }}" \
+                  --namespace=tech-prod \
+                  --dry-run=client -o yaml | kubectl apply -f -
 
-    #         - name: Deploy no ambiente de produção
-    #           uses: azure/k8s-deploy@v5
-    #           with:
-    #             namespace: 'tech-prod'
-    #             manifests: |
-    #               k8s/deployment.yaml
+            - name: Deploy no ambiente de produção
+              uses: azure/k8s-deploy@v5
+              with:
+                namespace: 'tech-prod'
+                manifests: |
+                  k8s/deployment.yaml
