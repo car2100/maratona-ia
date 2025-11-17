@@ -61,7 +61,7 @@ jobs:
             - name: Criar namespace de homologação
               run: kubectl create namespace tech-homolog --dry-run=client -o yaml | kubectl apply -f -
 
-            - name: Create secrets in prod
+            - name: Create secrets in homolog
               run: |
                 kubectl create secret generic database-secret \
                   --from-literal=DATABASE_URL="${{ secrets.DATABASE_URL }}" \
