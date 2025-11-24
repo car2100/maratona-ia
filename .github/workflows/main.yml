@@ -107,6 +107,10 @@ jobs:
                   --namespace=tech-prod \
                   --dry-run=client -o yaml | kubectl apply -f -
 
+            - name: Atualizar tag da imagem no deployment
+              run: |
+                sed -i 's|image: car21/encontros-tech.*|image: car21/encontros-tech:v${{ github.run_number }}|g' k8s/deployment.yaml
+
             - name: Deploy no ambiente de produção
               uses: azure/k8s-deploy@v5
               with:
