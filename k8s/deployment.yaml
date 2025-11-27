@@ -29,6 +29,13 @@ spec:
             secretKeyRef:
               name: database-secret
               key: DATABASE_URL
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
 ---
 apiVersion: v1
 kind: Service
@@ -39,8 +46,27 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - port: 80
+  - name: http
+    port: 80
     targetPort: 8000
     protocol: TCP
   selector:
     app: encontros-tech
+
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: encontros-tech
+  labels:
+    release: k8sgpt-monitoring
+spec:
+  selector:
+    matchLabels:
+      app: encontros-tech
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 30s
+      scheme: http
